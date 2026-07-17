@@ -1,1 +1,21 @@
 Finance/
+.env
+.env.*
+cred/
+credentials/
+.secrets/
+service-account*.json
+service_account*.json
+credentials*.json
+*.pem
+*.key
+# Local application configuration
+local_config.py
+**/local_config.py
+
+# Google credentials
+credentials.json
+service-account.json
+service_account.json
+cred/
+credentials/
