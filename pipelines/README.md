@@ -68,13 +68,19 @@ No intermediate normalized files are created.
 
 ↓
 
-### PostgreSQL
+### Raw PostgreSQL Record
+
+Each imported row contains both the original transaction data and metadata describing where it came from.
 
 ```text
-| company | wallet_bank | transaction_date    | pay_id      | amount | currency | status  |
-|----------|-------------|---------------------|-------------|--------|----------|---------|
-| Momus    | BISO        | 2026-02-23 00:43:31 | trn_8fd34...| 20.00  | EUR      | Pending |
+Table: raw_data
+
+| ingestion_id | ingestion_time | raw_hash | source_file | source_row_number | raw_data | folder_1 | folder_2 | folder_3 | folder_4 | folder_depth |
+|---------------|----------------|----------|-------------|-------------------|----------|----------|----------|----------|----------|--------------|
+| ea48ec89... | 2026-07-16 13:50:23 | 09fc4060... | Flamingopay BISO 02.2026.csv | 351 | {"ID":"trn_zmlbte3aai","Amount":"20","Currency":"EUR","Status":"Captured","Payment Method":"iDeal", ...} | Joint accounts (Momus+JerTeam) | Flamingopay | BISO | 02.2026 | 4 |
 ```
+
+The `raw_data` column stores the complete original transaction as JSON, while the remaining columns preserve file location, folder hierarchy, ingestion metadata and source information required for auditing and traceability.
 
 ## Advantages
 
@@ -119,22 +125,14 @@ After normalization, the generated files are imported into PostgreSQL without ad
 
 ## Example
 
-### Normalized CSV
+### Normalized PostgreSQL Record
 
 ```text
-| company | wallet_bank | date                | pay_id      | amount | currency | status    |
-|----------|-------------|---------------------|-------------|--------|----------|-----------|
-| Momus    | BISO        | 2026-06-30 20:45:49 | 543d28f6... | 51.00  | EUR      | Declined  |
-```
+Table: normalized_data
 
-↓
-
-### PostgreSQL
-
-```text
-| company | wallet_bank | date                | pay_id      | amount | currency | status    |
-|----------|-------------|---------------------|-------------|--------|----------|-----------|
-| Momus    | BISO        | 2026-06-30 20:45:49 | 543d28f6... | 51.00  | EUR      | Declined  |
+| company | wallet_bank | transaction_date | pay_id | amount | currency | status | reference |
+|----------|-------------|------------------|--------|--------|----------|---------|-----------|
+| Momus | BISO | 2026-02-03 14:43:29 | trn_zmlbte3aai | 20.00 | EUR | Captured | Deposit |
 ```
 
 ## Advantages
