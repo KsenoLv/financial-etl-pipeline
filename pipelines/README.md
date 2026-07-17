@@ -1,134 +1,69 @@
 # PostgreSQL Data Pipelines
 
-This directory contains two alternative approaches for loading financial transaction data into PostgreSQL.
-
-The project demonstrates two common ETL architectures:
-
-1. **Raw-first (ELT)** — source reports are imported into a raw PostgreSQL table and normalized afterwards.
-2. **Pre-normalized (ETL)** — reports are normalized before loading and then imported directly into PostgreSQL.
+This directory contains two alternative approaches for importing financial transaction data into PostgreSQL.
+Both pipelines produce the same normalized database structure but differ in how the transaction data is prepared before loading.
 
 ---
 
 # Project Structure
 
 ```text
-database/
-├── normalize_raw_data.py
-├── load_normalized_data.py
-└── README.md
+pipelines/
+├── database/
+│   ├── normalized_loader.py
+│   ├── row_loader.py
+│   └── README.md
+│
+└── file_normalization/
+    └── single_load/
+        ├── aifory.py
+        ├── biso.py
+        ├── jeton.py
+        └── tunzer.py
 ```
 
 ---
 
-# Pipeline 1 — Raw Database Normalization (ELT)
+# Pipeline 1 — Raw Files → PostgreSQL
 
 ## Architecture
 
 ```text
-Source Reports
-        │
-        ▼
-Raw PostgreSQL Table
-(raw_data)
-        │
-        ▼
-normalize_raw_data.py
-        │
-        ▼
+Google Drive
+      │
+      ▼
+Raw CSV / Excel Reports
+      │
+      ▼
+row_loader.py
+      │
+      ▼
 Normalized PostgreSQL Table
-(normalized_data)
 ```
 
 ## Description
 
-This approach stores every imported transaction exactly as it appears in the original report.
+This pipeline imports raw transaction reports downloaded from Google Drive.
 
-Each row contains:
+The script automatically:
 
-- original JSON data;
-- ingestion metadata;
-- file information;
-- folder hierarchy;
-- source row number.
-
-The normalization process is performed afterwards inside PostgreSQL.
-
-The script:
-
-- reads raw records from PostgreSQL;
 - detects the payment provider;
 - loads provider-specific mapping rules;
-- extracts required fields from JSON;
-- normalizes dates, numeric values and text fields;
-- applies provider-specific transformations;
-- stores the final normalized dataset.
+- extracts required fields from source reports;
+- normalizes dates, amounts, currencies and transaction identifiers;
+- applies provider-specific business rules;
+- writes the normalized records directly into PostgreSQL.
+
+No intermediate normalized files are created.
 
 ## Example
 
-### Raw table (`raw_data`)
+### Source report
 
 ```text
-| ingestion_id | wallet | raw_data |
-|--------------|--------|--------------------------------------------------------------------------|
-| 9f53...      | BISO   | {"ID":"trn_n4wvau55ds","Amount":"20","Currency":"EUR","Status":"Pending"} |
-```
-
-↓
-
-### Normalized table (`normalized_data`)
-
-```text
-| company | wallet_bank | transaction_date    | pay_id        | amount | currency | status  |
-|----------|-------------|---------------------|---------------|--------|----------|---------|
-| Momus    | BISO        | 2026-02-23 00:43:31 | trn_n4wvau... | 20.00  | EUR      | Pending |
-```
-
-## Advantages
-
-- Original source data is preserved.
-- Normalization rules can be changed without importing files again.
-- Full audit trail.
-- Suitable for enterprise ETL / ELT environments.
-- Easy to debug and validate mappings.
-
----
-
-# Pipeline 2 — Direct Normalized Loading (ETL)
-
-## Architecture
-
-```text
-Source Reports
-        │
-        ▼
-File Normalization
-        │
-        ▼
-Normalized CSV / Excel
-        │
-        ▼
-load_normalized_data.py
-        │
-        ▼
-PostgreSQL
-```
-
-## Description
-
-This workflow normalizes reports before they are loaded into PostgreSQL.
-
-Provider-specific processors convert different report formats into one unified schema.
-
-The loader simply imports these normalized files into PostgreSQL.
-
-## Example
-
-### Normalized CSV
-
-```text
-| company | wallet_bank | date                | pay_id        | amount | currency | status    |
-|----------|-------------|---------------------|---------------|--------|----------|-----------|
-| Momus    | BISO        | 2026-06-30 20:45:49 | 543d28f6...   | 51.00  | EUR      | Declined  |
+| Transaction ID | Date                 | Amount | Currency | Status  |
+|----------------|----------------------|--------|----------|---------|
+| trn_8fd34...   | 23/02/2026 00:43:31  | 20     | EUR      | Pending |
 ```
 
 ↓
@@ -136,54 +71,152 @@ The loader simply imports these normalized files into PostgreSQL.
 ### PostgreSQL
 
 ```text
-| company | wallet_bank | date                | pay_id        | amount | currency | status    |
-|----------|-------------|---------------------|---------------|--------|----------|-----------|
-| Momus    | BISO        | 2026-06-30 20:45:49 | 543d28f6...   | 51.00  | EUR      | Declined  |
+| company | wallet_bank | transaction_date    | pay_id      | amount | currency | status  |
+|----------|-------------|---------------------|-------------|--------|----------|---------|
+| Momus    | BISO        | 2026-02-23 00:43:31 | trn_8fd34...| 20.00  | EUR      | Pending |
 ```
 
 ## Advantages
 
-- Simple architecture.
-- High loading speed.
-- Minimal database-side processing.
-- Easy deployment.
-- Suitable for lightweight ETL pipelines.
+- One-step processing.
+- No intermediate files.
+- Fast end-to-end import.
+- Ideal for automated ETL pipelines.
+- Minimal manual intervention.
 
 ---
 
-# Architecture Comparison
+# Pipeline 2 — Normalized Files → PostgreSQL
 
-| Feature | Raw Database Pipeline | Direct Loading Pipeline |
-|----------|----------------------|-------------------------|
-| Raw source preserved | ✅ | ❌ |
-| File normalization required | ❌ | ✅ |
-| Database normalization | ✅ | ❌ |
-| Supports reprocessing without re-import | ✅ | ❌ |
-| Processing location | PostgreSQL | File processors |
-| Typical architecture | ELT | ETL |
+## Architecture
+
+```text
+Google Drive
+      │
+      ▼
+Raw Reports
+      │
+      ▼
+file_normalization/single_load/
+      │
+      ▼
+Normalized CSV / Excel
+      │
+      ▼
+normalized_loader.py
+      │
+      ▼
+PostgreSQL
+```
+
+## Description
+
+In this workflow each payment provider has its own standalone normalization script.
+
+These scripts convert different report formats into a common transaction structure.
+
+After normalization, the generated files are imported into PostgreSQL without additional transformations.
+
+## Example
+
+### Normalized CSV
+
+```text
+| company | wallet_bank | date                | pay_id      | amount | currency | status    |
+|----------|-------------|---------------------|-------------|--------|----------|-----------|
+| Momus    | BISO        | 2026-06-30 20:45:49 | 543d28f6... | 51.00  | EUR      | Declined  |
+```
+
+↓
+
+### PostgreSQL
+
+```text
+| company | wallet_bank | date                | pay_id      | amount | currency | status    |
+|----------|-------------|---------------------|-------------|--------|----------|-----------|
+| Momus    | BISO        | 2026-06-30 20:45:49 | 543d28f6... | 51.00  | EUR      | Declined  |
+```
+
+## Advantages
+
+- Modular architecture.
+- Easy to test individual providers.
+- Reusable normalized files.
+- Convenient for debugging and validation.
+- Easy to extend with new payment providers.
+
+---
+
+# Pipeline Comparison
+
+| Feature | row_loader.py | normalized_loader.py |
+|----------|----------------------|----------------------|
+| Input | Raw reports | Normalized reports |
+| Reads Google Drive files | ✅ | ❌ |
+| Performs normalization | ✅ | ❌ |
+| Uses standalone provider processors | ❌ | ✅ |
+| Creates intermediate normalized files | ❌ | ✅ |
+| Loads data into PostgreSQL | ✅ | ✅ |
 
 ---
 
 # Related Components
 
-The provider-specific mapping rules are stored separately from the database pipelines.
+Provider-specific normalization scripts are located in:
 
 ```text
-config/
-├── processors/
-├── processors_config.py
-└── processors_config_single_file.py
+file_normalization/
+└── single_load/
+    ├── aifory.py
+    ├── biso.py
+    ├── jeton.py
+    └── tunzer.py
 ```
 
-These configuration files define how each payment provider is normalized into the common transaction model.
+These scripts demonstrate how different payment provider reports are transformed into a unified transaction format before loading into PostgreSQL.
+
+The repository includes a representative subset of processors. The production version supports additional providers using the same architecture.
 
 ---
 
 # Summary
 
-This repository demonstrates two production-ready approaches for building financial ETL pipelines.
+This project demonstrates two production-ready approaches for importing financial transaction data into PostgreSQL.
 
-**Approach 1 (ELT)** stores raw transaction data first and performs normalization inside PostgreSQL, providing maximum traceability and flexibility.
-**Approach 2 (ETL)** normalizes transaction files before loading them into PostgreSQL, providing a simpler and faster processing pipeline.
+### Option 1
 
-Both approaches share the same normalization principles while targeting different architectural requirements.
+`row_loader.py`
+
+```text
+Raw Reports
+      │
+      ▼
+Normalization
+      │
+      ▼
+PostgreSQL
+```
+
+A single-step pipeline that reads raw reports and writes normalized data directly into PostgreSQL.
+
+### Option 2
+
+```text
+Raw Reports
+      │
+      ▼
+Standalone Provider Processors
+      │
+      ▼
+Normalized Files
+      │
+      ▼
+normalized_loader.py
+      │
+      ▼
+PostgreSQL
+```
+
+A modular pipeline where provider-specific processors generate normalized files before they are imported into PostgreSQL.
+
+Both approaches produce the same normalized database schema while supporting different deployment and integration scenarios.
