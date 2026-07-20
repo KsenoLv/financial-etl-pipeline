@@ -59,3 +59,13 @@ examples/    — примеры данных
 ## Лицензия
 
 Информация о лицензии будет добавлена позже.
+
+## Power BI Reporting
+
+The project includes a Power BI reporting layer built on top of the normalized financial dataset.
+
+The dashboards provide wallet-level, provider-level, project-level, and financial performance analysis.
+
+Detailed dashboard documentation and screenshots are available here:
+
+[Power BI Reporting](powerbi/README.md)

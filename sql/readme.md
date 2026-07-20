@@ -385,3 +385,60 @@ The exchange-rate reporting layer combines both rate sources and selects the app
 The public version of the repository uses demonstration reporting periods and a reduced list of currencies.
 
 The production period configuration, operational currency list, and provider-specific rate-handling rules have been intentionally omitted.
+
+## Data enrichment
+
+The normalization pipeline focuses on producing a clean transactional dataset. Additional analytical attributes are attached during the reporting stage through dedicated enrichment views.
+
+These views consolidate static and semi-static reference data collected from multiple internal databases and external systems.
+
+Examples of enriched information include:
+
+* casino and project metadata;
+* payment providers;
+* payment methods;
+* merchant information;
+* country and region mappings;
+* transaction categories;
+* commission rules;
+* reporting dimensions;
+* other business reference data.
+
+Rather than embedding all business logic directly into the transformation pipeline, the project separates transactional processing from reporting enrichment.
+
+```text
+Raw transactions
+        │
+        ▼
+raw_data_normalized_v2
+        │
+        ├──────────────┐
+        │              │
+        ▼              ▼
+Status mapping     Transaction type mapping
+        │              │
+        └──────┬───────┘
+               ▼
+           main_data
+               │
+               ├──────────────┐
+               │              │
+               ▼              ▼
+      Reporting Views   Reference Views
+               │              │
+               └──────┬───────┘
+                      ▼
+            Business Reporting Dataset
+```
+
+The reporting layer joins multiple specialized views to enrich transactions with analytical dimensions while keeping the core transformation logic independent from business-specific reference data.
+
+This architecture provides several advantages:
+
+* clear separation between ETL and reporting logic;
+* reusable reference datasets across multiple reports;
+* simplified maintenance of business mappings;
+* improved scalability as new data sources are introduced;
+* minimal changes to the core transformation pipeline when analytical requirements evolve.
+
+The public repository demonstrates the overall architecture and integration approach. Production reporting views, internal metadata sources, and proprietary business mappings have been intentionally omitted.
