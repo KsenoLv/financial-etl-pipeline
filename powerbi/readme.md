@@ -2,11 +2,13 @@
 
 # Wallet Performance Dashboard
 
-The Wallet Performance dashboard provides a consolidated financial overview of all payment providers.
+The Wallet Performance dashboard provides a consolidated financial overview of balances, deposits, withdrawals, commissions, and payment provider performance.
 
 <p align="center">
-  <img src="screenshots/wallet_performance.png" width="100%">
+  <img src="screenshots/wallet_performance.png" width="95%">
 </p>
+
+The report supports hierarchical drill-down from provider level to wallet accounts and currencies while preserving consolidated financial metrics.
 
 ## Overview
 
