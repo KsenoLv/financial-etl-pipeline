@@ -15,9 +15,9 @@ The Wallet Performance dashboard provides a consolidated financial overview of b
 </td>
 
 <td align="center">
-<b>Provider Analysis</b><br><br>
-<a href="screenshots/wallet_performance_2">
-<img src="screenshots/wallet_performance_2" width="100%">
+<b>Wallet Performance drill</b><br><br>
+<a href="screenshots/wallet_performance_2.png">
+<img src="screenshots/wallet_performance_2.png" width="100%">
 </a>
 </td>
 
