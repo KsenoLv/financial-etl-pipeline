@@ -218,7 +218,7 @@ The reporting layer includes:
 
 # Dashboard Preview
 
-## Financial Dashboard
+## Operational Financial Report
 
 <p align="center">
 <img src="powerbi/screenshots/wallet_performance.png" width="95%">
@@ -235,10 +235,10 @@ The reporting layer includes:
 
 ---
 
-## Business Reporting
+## Business KPI Dashboard
 
 <p align="center">
-<img src="powerbi/screenshots/dashboard_summary.png" width="95%">
+<img src="powerbi/screenshots/Business_KPI_Dashboard.png" width="95%">
 </p>
 
 ---
