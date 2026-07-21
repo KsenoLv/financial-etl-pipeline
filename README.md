@@ -112,8 +112,7 @@ Despite completely different source formats, all collected data is transformed i
 
 > **Confidentiality Notice**
 >
-> Data acquisition modules are intentionally excluded from this public repository because they contain proprietary authentication workflows, customer-specific integrations and confidential business logic.
->
+> Data acquisition modules are intentionally excluded from this public repository because they contain proprietary authentication workflows, customer-specific integrations and confidential business logic.>
 > This repository focuses on the ETL architecture, data processing, normalization, analytics and reporting layers.
 
 ---
@@ -255,6 +254,13 @@ Responsibilities include:
 - Analytical datasets
 - Reporting optimization
 - Additional business reporting datasets
+
+---
+
+## Configuration
+
+The production solution uses environment variables for database connections, cloud storage and external integrations.
+Configuration files are intentionally excluded from the public repository because they contain environment-specific settings and confidential integration details.
 
 ---
 
