@@ -221,7 +221,7 @@ The reporting layer includes:
 ## Financial Dashboard
 
 <p align="center">
-<img src="powerbi/screenshots/dashboard_wallet.png" width="95%">
+<img src="powerbi/screenshots/wallet_performance.png" width="95%">
 </p>
 
 ---
@@ -229,7 +229,8 @@ The reporting layer includes:
 ## Data Model
 
 <p align="center">
-<img src="powerbi/screenshots/data_model.png" width="95%">
+  <img src="powerbi/screenshots/Semantic_model_example.png" width="49%">
+  <img src="powerbi/screenshots/Semantic_model_example2.png" width="49%">
 </p>
 
 ---
