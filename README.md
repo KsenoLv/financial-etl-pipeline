@@ -61,10 +61,6 @@ Current implementation includes:
 
 # Architecture
 
-<p align="center">
-<img src="images/project_architecture.png" width="95%">
-</p>
-
 ```
 External Financial Systems
         │
