@@ -62,9 +62,11 @@ Supports hierarchical drill-down from provider level to wallet accounts and curr
 
 Provides high-level business KPIs for operational and financial monitoring.
 
-<p align="center">
-<img src="powerbi/screenshots/Business_KPI_Dashboard.png" width="95%">
-</p>
+<td align="center">
+<b>Executive Dashboard</b><br><br>
+<a href="powerbi/screenshots/Business_KPI_Dashboard.png">
+</a>
+</td>
 
 ---
 
