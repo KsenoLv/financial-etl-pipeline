@@ -67,7 +67,8 @@ Provides high-level business KPIs for operational and financial monitoring.
 
 <td align="center">
 <b>Executive Dashboard</b><br><br>
-<a href="powerbi/screenshots/Business_KPI_Dashboard.png">
+<a href="screenshots/Business_KPI_Dashboard.png">
+<img src="screenshots/Business_KPI_Dashboard.png" width="100%">
 </a>
 </td>
 
