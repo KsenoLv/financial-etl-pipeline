@@ -35,7 +35,7 @@ Power BI
 
 ### 01_full_load_postgres_to_lakehouse.ipynb
 
-Loads normalized data from PostgreSQL into the Microsoft Fabric Lakehouse staging table.
+Loads data from PostgreSQL into the Microsoft Fabric Lakehouse staging table.
 
 **Flow**
 
@@ -49,7 +49,7 @@ transfer_data_to_fabric
 Main tasks:
 
 - Connects to PostgreSQL using JDBC
-- Loads normalized transaction data
+- Loads transaction data
 - Validates the imported dataset
 
 ---
