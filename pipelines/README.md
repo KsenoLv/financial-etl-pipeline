@@ -145,19 +145,6 @@ Table: normalized_data
 
 ---
 
-# Pipeline Comparison
-
-| Feature | row_loader.py | normalized_loader.py |
-|----------|----------------------|----------------------|
-| Input | Raw reports | Normalized reports |
-| Reads Google Drive files | ✅ | ❌ |
-| Performs normalization | ✅ | ❌ |
-| Uses standalone provider processors | ❌ | ✅ |
-| Creates intermediate normalized files | ❌ | ✅ |
-| Loads data into PostgreSQL | ✅ | ✅ |
-
----
-
 # Related Components
 
 Provider-specific normalization scripts are located in:
