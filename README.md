@@ -17,7 +17,6 @@
 - ⚙️ **End-to-End ETL Pipeline**
 - 🗄️ **PostgreSQL + Microsoft Fabric + Delta Lake**
 - 📊 **Power BI Business Intelligence**
-- 💱 **Multi-currency reporting & historical exchange rates**
 
 ---
 
