@@ -37,18 +37,9 @@ Power BI
 
 Loads data from PostgreSQL into the Microsoft Fabric Lakehouse staging table.
 
-**Flow**
-
-```text
-PostgreSQL
-    │
-    ▼
-transfer_data_to_fabric
-```
-
 Main tasks:
 
-- Connects to PostgreSQL using JDBC
+- Connects to PostgreSQL
 - Loads transaction data
 - Validates the imported dataset
 
@@ -58,21 +49,11 @@ Main tasks:
 
 Transforms staging data into the analytical dataset used by the reporting layer.
 
-**Flow**
-
-```text
-transfer_data_to_fabric
-    │
-    ▼
-raw_data_normalized_v2
-```
-
 Main tasks:
 
 - Standardizes the dataset
 - Converts data types
 - Calculates normalized financial values
-- Preserves ingestion metadata
 - Loads the reporting table
 
 ---
@@ -115,10 +96,10 @@ Microsoft Fabric
 Power BI
 ```
 
-Using a SQL view keeps the reporting layer centralized, consistent and easy to maintain while exposing a single analytical dataset for downstream reporting.
+Using a SQL view keeps all reporting logic in one place, making it easier to maintain while providing a single dataset for reporting and analysis.
 
 ---
 
 > **Note**
 >
-> The public repository contains an anonymized implementation of the Microsoft Fabric pipeline. Production notebooks, provider-specific business rules and proprietary reporting logic have been intentionally omitted.
+> This public repository includes a simplified version of the Microsoft Fabric pipeline. Production notebooks, provider-specific business rules, and confidential reporting logic have been removed.

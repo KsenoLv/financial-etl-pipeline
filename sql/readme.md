@@ -12,15 +12,12 @@ This directory contains the PostgreSQL database schema, configuration tables and
 
 ## Schema
 
-| SQL Schema | Used by |
-|------------|---------|
-| `schema/create_raw_data.sql` | `pipelines/database/raw_loader.py` |
-| `schema/create_normalized_data.sql` | `pipelines/database/normalized_loader.py` |
+* `schema/create_raw_data.sql` → `pipelines/database/raw_loader.py`
+* `schema/create_normalized_data.sql` → `pipelines/database/normalized_loader.py`
 
 ## Reporting Views
 
 The reporting layer is built around a **central reporting view** that serves as the primary data source for Microsoft Fabric and Power BI.
-
 Additional mapping tables and reporting views are joined to this central view to enrich transactions with:
 
 ```text

@@ -2,32 +2,6 @@
 
 This directory contains Power BI reports built on top of the centralized Microsoft Fabric analytical model, providing financial monitoring, reconciliation and executive reporting across multiple payment providers.
 
-## Architecture
-
-```text
-Google Drive / APIs / Web Portal
-            │
-            ▼
-        ETL Pipeline
-            │
-            ▼
-        PostgreSQL
-            │
-            ▼
-     Microsoft Fabric
-            │
-            ▼
-vw_raw_data_normalized_v2
-            │
-            ▼
-        main_data
-            │
-            ▼
-     Power BI Reports
-```
-
----
-
 ## Dashboards
 
 ### Wallet Performance Dashboard
@@ -54,7 +28,7 @@ Provides a consolidated financial overview of balances, deposits, withdrawals, c
 </tr>
 </table>
 
-Supports hierarchical drill-down from provider level to wallet accounts and currencies while preserving consolidated financial metrics.
+Supports hierarchical drill-down from provider level to payment methods and currencies while preserving consolidated financial metrics.
 
 ---
 
@@ -89,7 +63,6 @@ The dashboards provide a consolidated financial view including:
 - Affiliate payments
 - Operational expenses
 - Multi-currency balances
-- Historical EUR valuation
 
 ---
 
@@ -110,21 +83,6 @@ Opening Balance
 
 = Closing Balance
 ```
-
----
-
-## Features
-
-- Multi-provider financial reporting
-- Balance reconciliation
-- Commission analysis
-- Project and company analysis
-- Payment method analysis
-- Multi-currency reporting
-- Historical EUR conversion
-- Interactive filtering
-- Hierarchical drill-down
-- Executive KPI dashboards
 
 ---
 

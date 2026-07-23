@@ -20,19 +20,13 @@ Although the production platform supports multiple acquisition methods (REST API
 
 - Google Drive shared folders
 
+* `copy_data_from_gd.py` – downloads data from Google Drive to the server
+
 ## Output
 
 - Downloaded financial reports
 - Preserved directory hierarchy
 - Download logs
-
-## Next Stage
-
-Downloaded files can be processed by:
-
-- `copy_data_from_gd.py` – loads raw data into PostgreSQL
-
----
 
 > **Note**
 >

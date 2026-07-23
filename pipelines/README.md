@@ -51,8 +51,7 @@ The script automatically:
 - loads provider-specific mapping rules;
 - extracts required fields from source reports;
 - normalizes dates, amounts, currencies and transaction identifiers;
-- applies provider-specific business rules;
-- writes the normalized records directly into PostgreSQL.
+- writes the records directly into PostgreSQL.
 
 No intermediate normalized files are created.
 
@@ -118,9 +117,7 @@ PostgreSQL
 ## Description
 
 In this workflow each payment provider has its own standalone normalization script.
-
 These scripts convert different report formats into a common transaction structure.
-
 After normalization, the generated files are imported into PostgreSQL without additional transformations.
 
 ## Example
@@ -159,8 +156,7 @@ file_normalization/
 ```
 
 These scripts demonstrate how different payment provider reports are transformed into a unified transaction format before loading into PostgreSQL.
-
-The repository includes a representative subset of processors. The production version supports additional providers using the same architecture.
+The repository includes a few example processors. The production version supports additional providers using the same architecture.
 
 ---
 
@@ -170,38 +166,11 @@ This project demonstrates two production-ready approaches for importing financia
 
 ### Option 1
 
-`row_loader.py`
-
-```text
-Raw Reports
-      │
-      ▼
-Normalization
-      │
-      ▼
-PostgreSQL
-```
-
 A single-step pipeline that reads raw reports and writes normalized data directly into PostgreSQL.
 
 ### Option 2
 
-```text
-Raw Reports
-      │
-      ▼
-Standalone Provider Processors
-      │
-      ▼
-Normalized Files
-      │
-      ▼
-normalized_loader.py
-      │
-      ▼
-PostgreSQL
-```
-
 A modular pipeline where provider-specific processors generate normalized files before they are imported into PostgreSQL.
+
 
 Both approaches produce the same normalized database schema while supporting different deployment and integration scenarios.

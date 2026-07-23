@@ -1,6 +1,6 @@
 # Financial ETL Pipeline
 
-> **End-to-End Financial Data Engineering Platform** designed to automate financial data acquisition, ETL processing, normalization, analytics and business intelligence reporting across **40+ payment providers and digital wallets**.
+> **End-to-End Financial Data Engineering Platform** designed to automate financial data acquisition, processing, normalization, analytics and business intelligence reporting across **40+ payment providers and digital wallets**.
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-336791)
@@ -14,7 +14,7 @@
 
 - 🚀 **40+ payment providers and digital wallets**
 - 🔄 **REST APIs, Google Drive & Automated Web Portals**
-- ⚙️ **End-to-End ETL Pipeline**
+- ⚙️ **End-to-End Pipeline**
 - 🗄️ **PostgreSQL + Microsoft Fabric + Delta Lake**
 - 📊 **Power BI Business Intelligence**
 
@@ -22,15 +22,13 @@
 
 # Overview
 
-Financial ETL Pipeline is an end-to-end data engineering platform developed to automate financial data acquisition, ETL processing, normalization and business reporting across **40+ payment providers and digital wallets**.
+Financial ETL Pipeline is an end-to-end data engineering platform developed to automate financial data acquisition, processing, normalization and business reporting across **40+ payment providers and digital wallets**.
 
-Designed for production use, the platform integrates heterogeneous financial data sources into a unified analytical model that supports operational reporting, reconciliation and business intelligence.
-
+The platform combines financial data from different sources into one clear reporting system. It helps with daily reporting, data checks, and business analysis.
 Financial organizations often receive operational and financial data from multiple providers, each exposing information through different technologies, formats and reporting standards. Some providers offer REST APIs, others distribute reports through shared cloud storage, while many only provide downloadable reports via secured administrative portals.
+To solve this challenge, the platform automatically collects financial data from different sources, validates and standardizes it, and then loads it into PostgreSQL and Microsoft Fabric for analysis.
 
-To solve this challenge, the platform implements a unified acquisition and processing layer capable of automatically collecting, validating, normalizing and transforming financial data before loading it into PostgreSQL and Microsoft Fabric for analytics.
-
-The platform covers the complete lifecycle of financial data:
+The platform manages the entire financial data process, from collecting raw files to preparing data for reporting and analytics.
 
 - **Data Acquisition**
 - **ETL Processing**
@@ -108,34 +106,12 @@ Despite completely different source formats, all collected data is transformed i
 
 > **Confidentiality Notice**
 >
-> Data acquisition modules are intentionally excluded from this public repository because they contain proprietary authentication workflows, customer-specific integrations and confidential business logic.>
+> The data collection modules are not included in this public repository because they contain private authentication methods, customer-specific integrations, and confidential business logic.
 > This repository focuses on the ETL architecture, data processing, normalization, analytics and reporting layers.
 
 ---
 
-# Key Features
-
-- Automated financial data acquisition
-- REST API integrations
-- Google Drive synchronization
-- Automated web portal downloads
-- Processing data from **40+ payment providers**
-- ETL pipeline
-- Financial transaction normalization
-- Multi-currency support
-- Historical exchange rates
-- Weekly crypto rate processing
-- Financial reconciliation
-- Commission calculation
-- Delta Lake integration
-- Microsoft Fabric analytics
-- Interactive Power BI dashboards
-
----
-
 # Repository Structure
-
-The repository is organized into modular components, each responsible for a specific stage of the data engineering pipeline.
 
 | Directory | Description |
 |-----------|-------------|
@@ -145,32 +121,6 @@ The repository is organized into modular components, each responsible for a spec
 | [`sql/`](sql/) | Database schema, SQL scripts and reporting views |
 | [`fabric/`](fabric/) | Microsoft Fabric notebooks and analytical processing |
 | [`powerbi/`](powerbi/) | Power BI reports, dashboards and screenshots |
-
----
-
-# ETL Workflow
-
-```
-Data Acquisition
-        │
-        ▼
-Validation
-        │
-        ▼
-Raw Data Storage
-        │
-        ▼
-Normalization
-        │
-        ▼
-Business Views
-        │
-        ▼
-Microsoft Fabric
-        │
-        ▼
-Power BI Dashboards
-```
 
 ---
 
