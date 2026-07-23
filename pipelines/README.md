@@ -65,8 +65,6 @@ No intermediate normalized files are created.
 | trn_8fd34...   | 23/02/2026 00:43:31  | 20     | EUR      | Pending |
 ```
 
-↓
-
 ### Raw PostgreSQL Record
 
 Each imported row contains both the original transaction data and metadata describing where it came from.
